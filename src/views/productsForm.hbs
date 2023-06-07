@@ -1,0 +1,48 @@
+<form id="productForm" method="post">
+    <label>title</label>
+    <input class="form-control" type="text" name="title" id="title" />
+    <label>price</label>
+    <input class="form-control" type="number" name="price" id="price" />
+    <label>thumbnail</label>
+    <input class="form-control" type="url" name="thumbnail" id="thumbnail" />
+    <label>description</label>
+    <input class="form-control" type="text" name="description" id="price" />
+    <label>stock</label>
+    <input class="form-control" type="number" name="stock" id="thumbnail" />
+ <label>code</label>
+    <input class="form-control" type="number" name="code" id="thumbnail" />
+    <button type="submit" class="btn btn-info my-3">Agregar</button>
+</form>
+
+<div>
+    {{#if productos}}
+    <h2>Productos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">title</th>
+                <th scope="col">price</th>
+                <th scope="col">thumbnail</th>
+                <th scope="col">timestamp</th>
+                <th scope="col">description</th>
+                <th scope="col">code</th>
+                <th scope="col">stock</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {{#each productos}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td><img width="70" src={{this.thumbnail}} /></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <div>
+        <p>No hay productos</p>
+    </div>
+    {{/if}}
+</div>
