@@ -11,7 +11,7 @@ class CarritosManagerMemory {
         }
     }
 
-    guardar() {
+    save() {
         try {
             const leer = this.elementos;
             if (leer.length == 0) {
@@ -41,7 +41,7 @@ class CarritosManagerMemory {
         }
     }
 
-    actualizar(id, producto) {
+    update(id, producto) {
         try {
             const posicionCarrito = this.elementos.findIndex((carrito) => carrito.id == id.id)
             let carritoModificado = {id, ...producto}

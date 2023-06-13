@@ -1,0 +1,17 @@
+[2023-06-12T21:57:18.181] [ERROR] default - POST /api/productos/
+[2023-06-12T21:57:18.190] [ERROR] default - POST /api/productos/- ruta no encontrada
+[2023-06-12T21:57:18.307] [ERROR] default - Error: Hubo un error al crear el producto productos validation failed: title: Path `title` is required., price: Path `price` is required., thumbnail: Path `thumbnail` is required., description: Path `description` is required., code: Path `code` is required., stock: Path `stock` is required.
+    at ProductsManagerMongo.save (file:///C:/Users/Emi/Desktop/curso%20coder/BACKEND/proyecto-final-backend/src/daos/managers/product/productsManagerMongo.js:32:19)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async saveProduct (file:///C:/Users/Emi/Desktop/curso%20coder/BACKEND/proyecto-final-backend/src/services/product.service.js:11:12)
+    at async postProductosControllers (file:///C:/Users/Emi/Desktop/curso%20coder/BACKEND/proyecto-final-backend/src/controllers/products.controller.js:16:26)
+[2023-06-12T21:57:36.891] [ERROR] default - GET /api/productos/
+[2023-06-12T21:57:36.894] [ERROR] default - GET /api/productos/- ruta no encontrada
+[2023-06-12T21:59:04.619] [ERROR] default - POST /api/productos/
+[2023-06-12T21:59:04.621] [ERROR] default - POST /api/productos/- ruta no encontrada
+[2023-06-12T21:59:15.227] [ERROR] default - GET /api/productos/
+[2023-06-12T21:59:15.228] [ERROR] default - GET /api/productos/- ruta no encontrada
+[2023-06-12T21:59:18.252] [ERROR] default - POST /api/productos/
+[2023-06-12T21:59:18.254] [ERROR] default - POST /api/productos/- ruta no encontrada
+[2023-06-12T21:59:21.783] [ERROR] default - GET /api/productos/
+[2023-06-12T21:59:21.784] [ERROR] default - GET /api/productos/- ruta no encontrada

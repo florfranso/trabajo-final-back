@@ -5,7 +5,6 @@ const getProductosControllers = async (req, res) => {
     try {
         const productos = await getProductos();
         res.render('productsForm')
-        //res.json({status:"success",data:productos});
     } catch (error) {
         logger.error(error);
         res.json({status:"error",message:error.message});
