@@ -65,7 +65,6 @@ const deleteAllUserController = async (req, res) => {
 
 const authLogin = async (req, res) => {
     try {
-        // res.json({ status: "debe ingresar con sus datos" });
         res.redirect('/login');
     } catch (error) {
         logger.error(error);
@@ -97,7 +96,6 @@ const authRegisterError = async (req, res) => {
 const authLoginEnter = async (req, res) => {
     try {
         res.render('login')
-        //res.json({ status: "debe ingresar con sus datos" });
     } catch (error) {
         logger.error(error);
         res.json({ status: "error", message: error.message });
@@ -122,8 +120,8 @@ const authLoginAutenticate = async (req, res) => {
 const authPerfil = async (req, res) => {
     try {
         const user = {
-            nombre: req.user.nombre,
-            celular: req.user.celular,
+            nombre: req.user.name,
+            celular: req.user.phone,
             avatar: req.user.avatar
         }
         res.render('perfil', { datos: user })
@@ -137,7 +135,7 @@ const authPerfil = async (req, res) => {
 const authHome = async (req, res) => {
     try {
         const user = {
-            nombre: req.user.nombre,
+            nombre: req.user.name,
 
         }
         res.render('home', { datos: user });
@@ -151,7 +149,6 @@ const authHome = async (req, res) => {
 const authLoginError = async (req, res) => {
     try {
         res.render('login-error');
-        // res.json({ status: "usuario no encontrado" });
     } catch (error) {
 
         logger.error(error);
@@ -164,7 +161,6 @@ const authLogout = async (req, res) => {
         req.session.destroy(err => {
             if (err) {
                 throw err
-                //res.redirect("/")
             } const user = {
                 nombre: req.user.name,
             }
@@ -188,10 +184,10 @@ const authRegisterPost = async (req, res) => {
                 const emailTemplate = `<div>
                     <h1>Datos del usuario</h1>
                     <p>Email: ${req.body.email}</p>
-                    <p>Nombre: ${req.bodynombre}</p>
-                    <p>Dirección: ${req.body.direccion}</p>
-                    <p>Edad: ${req.body.edad}</p>
-                    <p>Teléfono: ${req.body.celular}</p>
+                    <p>Nombre: ${req.body.name}</p>
+                    <p>Dirección: ${req.body.address}</p>
+                    <p>Edad: ${req.body.age}</p>
+                    <p>Teléfono: ${req.body.phone}</p>
                     <p>Avatar: ${req.body.avatar}</p>
                     </div>`;
                 const mailOptions = {

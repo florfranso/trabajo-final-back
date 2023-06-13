@@ -1,76 +1,76 @@
-import { getCarritos, addCarrito, getCarritoById, updateCarrito, deleteCarritoById, deleteAllCarritos } from "../services/carts.service.js"
-import { getProductById } from "../services/product.service.js"
-import { logger } from '../loggers/index.js'
-
-
-const getCarritosControllers = async (req, res) => {
-    try {
-        const carritos = await getCarritos();
-        res.json({ status: "success", data: carritos });
-    } catch (error) {
-        console.log(error);
-        res.json({ status: "error", message: error.message });
-    }
-};
+import {getCarritos, addCarrito, deleteCarrito, updateCarrito, deleteProductFromCart, buyProductsInCart} from "../services/carts.service.js"
 
 
 const postCarritosControllers = async (req, res) => {
-    try {
-        const nuevoCarrito = await addCarrito(req.body);
-        res.json({ status: "success", data: nuevoCarrito });
-    } catch (error) {
-        logger.error(error);
-        res.json({ status: "error", message: error.message });
+    const email = req.body.email
+    const carrito = await getCarritos(email)
+    if (carrito) {
+        res.send('Usted ya dispone de un carrito')
+    } else {
+        await addCarrito(email)
+        res.send(`Carrito creado`)
     }
-};
+}
 
-const getByIdCarritosControllers = async (req, res) => {
-    try {
-        const carritoId = await getCarritoById(req.params.id);
-        res.json({ status: "success", data: carritoId });
-    } catch (error) {
-        logger.error(error);
-        res.json({ status: "error", message: error.message });
+const getCarritosControllers = async (req, res) => {
+    const user = {
+        nombre: req.body.name,
+        telefono: req.body.phone,
+        avatar: req.body.avatar
     }
-};
-
-const updateCarritosControllers = async (req, res) => {
-    try {
-        const id = req.params.id
-        id = parseInt(id)
-        const carrito = await getCarritoById(id)
-        let productoId = req.body.id
-        const producto = await getProductById(productoId)
-        await updateCarrito(carrito, producto)
-        res.json({ status: "success", data: id });
-    } catch (error) {
-        logger.error(error);
-        res.json({ status: "error", message: error.message });
+    const email = req.body.email
+    let carrito = await getCarritos(email);
+    if (carrito) {
+        res.send(`sus datos son ${JSON.stringify(user)}\n Este es su carrito: ${JSON.stringify(carrito)}`)
+    } else {
+        res.send(`Aun no dispone de un carrito`)
     }
-};
+}
 
-
-const deleteCarritoByIdControllers = async (req, res) => {
-    try {
-        const id = await deleteCarritoById(req.params.id);
-        res.json({ status: "success", data: id });
-    } catch (error) {
-        logger.error(error);
-        res.json({ status: "error", message: error.message });
+const deleteCarritoControllers = async (req, res) => {
+    const email = req.body.email;
+    let carrito = await getCarritos(email);
+    if (carrito) {
+        await deleteCarrito(email)
+        res.json({ message: 'carrito borrado' })
+    } else {
+        res.send('Usted no dispone de un carrito aun')
     }
-};
+}
 
-
-const deleteAllCarritosControllers = async (req, res) => {
-    try {
-        const deleteCarritos = await deleteAllCarritos();
-        res.json({ status: "success", data: deleteCarritos });
-    } catch (error) {
-        logger.error(error);
-        res.json({ status: "error", message: error.message });
+const updateCarritoControllers = async (req, res) => {
+    const email = req.user.email;
+    let carrito = await getCarritos(email);
+    if (carrito) {
+        const productId = req.body.id;
+        const message = await updateCarrito(email, productId)
+        res.send({message})
+    } else {
+        res.send('Usted no dispone de un carrito aun')
     }
-};
+}
 
+const deleteProductCarritoControllers = async (req, res) => {
+    const email = req.user.email;
+    let carrito = await getCarritos(email);
+    if (carrito) {
+        const productId = req.body.id;
+        const message = await deleteProductFromCart(email, productId)
+        res.send({message})
+    } else {
+        res.send('Usted no dispone de un carrito aun')
+    }
+}
 
+const buyCartControllers = async (req, res) => {
+    const email = req.user.email;
+    let carrito = await getCarritos(email);
+    if (carrito) {
+        const productos = await buyProductsInCart(email)
+        res.send(`Ha realizado la compra de ${JSON.stringify(productos)}`)
+    } else {
+        res.send('Usted no dispone de un carrito aun')
+    }
+}
 
-export { getCarritosControllers, postCarritosControllers, getByIdCarritosControllers, updateCarritosControllers, deleteCarritoByIdControllers, deleteAllCarritosControllers }
+export {getCarritosControllers, postCarritosControllers, deleteCarritoControllers, updateCarritoControllers, deleteProductCarritoControllers, buyCartControllers}
