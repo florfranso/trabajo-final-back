@@ -1,7 +1,6 @@
 import express from 'express';
 import { getProductosControllers, postProductosControllers, getByIdProductosControllers, updateProductosControllers, deleteProductByIdControllers, deleteAllProductsControllers } from '../controllers/products.controller.js';
 import {checkAdminRole} from '../middlewares/checkRole.js'
-import { checkLogged } from '../middlewares/auth.js';
 
 
 
